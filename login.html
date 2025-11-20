@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HousePal – Login</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        background: #F5F5DC;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .login-container {
+        background: #F4A460; /* light burnt sienna */
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.4);
+        width: 350px;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #E35336; /* burnt sienna */
+    }
+
+    label {
+        display: block;
+        margin-top: 15px;
+        font-weight: bold;
+        color: #A0522D;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 6px;
+        border: none;
+        font-size: 1rem;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        margin-top: 20px;
+        border: none;
+        border-radius: 6px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        background: #E35336;
+        color: #F5F5DC;
+        font-weight: bold;
+        box-shadow: 0 0 10px #E35336aa;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: #A0522D;
+    }
+
+    p {
+        text-align: center;
+        margin-top: 15px;
+        color: #A0522D;
+    }
+
+    p a {
+        color: #E35336;
+        text-decoration: none;
+    }
+</style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Login</h2>
+    <form id="loginForm">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="example@mail.com" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="********" required>
+
+        <button type="submit">Login</button>
+    </form>
+    <p>Don't have an account? <a href="register.html">Register</a></p>
+</div>
+
+<script>
+    const form = document.getElementById('loginForm');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); // prevent actual submission
+
+        // You can add validation here if needed
+
+        // Simulated redirect
+        alert("Login successful! Redirecting to Dashboard...");
+        window.location.href = "dashboard.html"; // simulated dashboard
+    });
+</script>
+
+</body>
+</html>
+
