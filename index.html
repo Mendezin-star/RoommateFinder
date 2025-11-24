@@ -10,111 +10,98 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: Arial, sans-serif;
+      font-family: "Segoe UI", Arial, sans-serif;
     }
 
     body {
       height: 100vh;
       width: 100vw;
-      background: #F5F5DC; /* off-white */
-      position: relative;
+      background: linear-gradient(to bottom, #FCBF49, #F77F00);
       overflow: hidden;
-    }
-
-    .overlay {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.35);
-      z-index: 1;
-    }
-
-    .content {
-      position: relative;
-      z-index: 2;
-      height: 100%;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       text-align: center;
       padding: 20px;
-      color: #A0522D; /* dark burnt sienna */
+      color: #003090; /* strong blue */
+    }
+
+    .box {
+      background: rgba(255, 255, 255, 0.65);
+      padding: 45px 35px;
+      border-radius: 20px;
+      backdrop-filter: blur(6px);
+      max-width: 700px;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.2);
     }
 
     h1 {
       font-size: 3rem;
-      font-weight: bold;
-      letter-spacing: 1px;
-      color: #E35336; /* burnt sienna */
+      font-weight: 800;
       margin-bottom: 15px;
-      text-shadow: 0 0 12px rgba(243, 148, 70, 0.5);
+      color: #003090;
     }
 
     p {
       font-size: 1.2rem;
-      max-width: 600px;
-      margin-bottom: 30px;
-      color: #A0522D;
-      text-shadow: 0 0 6px rgba(0,0,0,0.2);
+      max-width: 550px;
+      margin: 0 auto 35px;
+      opacity: 0.9;
+      color: #003090;
     }
 
     .buttons {
       display: flex;
       gap: 20px;
-      flex-wrap: wrap;
       justify-content: center;
+      flex-wrap: wrap;
     }
 
     button {
       padding: 14px 30px;
       border: none;
-      border-radius: 8px;
+      border-radius: 12px;
       font-size: 1.1rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: 0.3s ease;
     }
 
     .register-btn {
-      background: #E35336; 
-      color: #F5F5DC;
-      box-shadow: 0 4px 15px rgba(227, 83, 54, 0.4);
+      background: #003090;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
     }
 
     .register-btn:hover {
-      background: #A0522D;
-      transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(160, 82, 45, 0.5);
+      background: #D62828;
+      transform: translateY(-4px);
     }
 
     .login-btn {
-      background: transparent;
-      border: 2px solid #E35336;
-      color: #E35336;
+      background: #fff;
+      border: 2px solid #003090;
+      color: #003090;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
     .login-btn:hover {
-      background: #F4A460;
-      border-color: #A0522D;
-      color: #A0522D;
-      transform: translateY(-3px);
+      background: #003090;
+      color: #fff;
+      transform: translateY(-4px);
     }
 
     @media (max-width: 600px) {
-      h1 { font-size: 2.2rem; }
+      h1 { font-size: 2.3rem; }
       p { font-size: 1rem; }
-      button { padding: 12px 25px; font-size: 1rem; }
     }
   </style>
 </head>
 <body>
 
-  <div class="overlay"></div>
-
-  <div class="content">
+  <div class="box">
     <h1>HousePal</h1>
-    <p>Find your perfect roommate based on budget, habits, lifestyle & location.</p>
+    <p>Find the ideal roommate based on lifestyle, habits, location, and budget — effortlessly.</p>
 
     <div class="buttons">
       <button class="register-btn">Get Started</button>
@@ -123,18 +110,11 @@
   </div>
 
   <script>
-    // Select buttons
-    const registerBtn = document.querySelector('.register-btn');
-    const loginBtn = document.querySelector('.login-btn');
+    document.querySelector(".register-btn").onclick = () =>
+      window.location.href = "register.html";
 
-    // Add click events
-    registerBtn.addEventListener('click', () => {
-      window.location.href = 'register.html'; // redirect to registration page
-    });
-
-    loginBtn.addEventListener('click', () => {
-      window.location.href = 'login.html'; // redirect to login page
-    });
+    document.querySelector(".login-btn").onclick = () =>
+      window.location.href = "login.html";
   </script>
 
 </body>

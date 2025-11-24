@@ -6,88 +6,93 @@
 <title>HousePal – Login</title>
 
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: Arial, sans-serif;
-    }
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
 
-    body {
-        background: #F5F5DC;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
+/* SAME BACKGROUND AS REGISTER */
+body { 
+    background: #EAE2B7; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+    color: #003090;
+}
 
-    .login-container {
-        background: #F4A460; /* light burnt sienna */
-        padding: 40px;
-        border-radius: 10px;
-        box-shadow: 0 0 20px rgba(0,0,0,0.4);
-        width: 350px;
-    }
+/* SAME CONTAINER STYLE AS REGISTER */
+.login-container { 
+    background: #FCBF49;
+    padding: 25px;
+    border-radius: 14px;
+    width: 350px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
 
-    h2 {
-        text-align: center;
-        margin-bottom: 30px;
-        color: #E35336; /* burnt sienna */
-    }
+h2 { 
+    text-align: center; 
+    margin-bottom: 20px; 
+    color: #D62828;    /* matches register title */
+    font-size: 2rem;
+}
 
-    label {
-        display: block;
-        margin-top: 15px;
-        font-weight: bold;
-        color: #A0522D;
-    }
+label { 
+    display: block; 
+    margin-top: 12px; 
+    margin-bottom: 5px;
+    font-weight: bold; 
+    color: #003090;     /* same as register */
+}
 
-    input {
-        width: 100%;
-        padding: 10px;
-        margin-top: 5px;
-        border-radius: 6px;
-        border: none;
-        font-size: 1rem;
-    }
+input { 
+    width: 100%; 
+    padding: 10px; 
+    border-radius: 6px; 
+    border: none;
+    margin-bottom: 15px;
+}
 
-    button {
-        width: 100%;
-        padding: 12px;
-        margin-top: 20px;
-        border: none;
-        border-radius: 6px;
-        font-size: 1.1rem;
-        cursor: pointer;
-        background: #E35336;
-        color: #F5F5DC;
-        font-weight: bold;
-        box-shadow: 0 0 10px #E35336aa;
-        transition: 0.3s;
-    }
+/* SAME BUTTON STYLE AS REGISTER */
+button { 
+    width: 100%; 
+    padding: 12px; 
+    border: none; 
+    border-radius: 8px;
+    font-size: 1.1rem; 
+    cursor: pointer;
+    background: #F77F00;
+    color: white;
+    font-weight: bold;
+    transition: 0.3s;
+}
 
-    button:hover {
-        background: #A0522D;
-    }
+button:hover { 
+    background: #D62828;
+}
 
-    p {
-        text-align: center;
-        margin-top: 15px;
-        color: #A0522D;
-    }
+p { 
+    text-align: center; 
+    margin-top: 15px; 
+    color: #003090;
+}
 
-    p a {
-        color: #E35336;
-        text-decoration: none;
-    }
+p a { 
+    color: #003090; 
+    font-weight: bold; 
+    text-decoration: none;
+}
+p a:hover {
+    color: #D62828;
+}
 </style>
 </head>
+
 <body>
 
 <div class="login-container">
     <h2>Login</h2>
+
     <form id="loginForm">
-        <label for="email">Email</label>
+
+        <label for="email">Email Address</label>
         <input type="email" id="email" placeholder="example@mail.com" required>
 
         <label for="password">Password</label>
@@ -95,23 +100,40 @@
 
         <button type="submit">Login</button>
     </form>
+
     <p>Don't have an account? <a href="register.html">Register</a></p>
 </div>
 
 <script>
-    const form = document.getElementById('loginForm');
+const form = document.getElementById('loginForm');
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault(); // prevent actual submission
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
 
-        // You can add validation here if needed
+    const emailInput = document.getElementById('email').value.trim();
+    const passwordInput = document.getElementById('password').value;
 
-        // Simulated redirect
-        alert("Login successful! Redirecting to Dashboard...");
-        window.location.href = "dashboard.html"; // simulated dashboard
-    });
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+
+    const user = users.find(u => u.email === emailInput);
+
+    if(!user){
+        alert("Email not found. Please register first.");
+        return;
+    }
+
+    if(user.password !== passwordInput){
+        alert("Incorrect password. Try again.");
+        return;
+    }
+
+    sessionStorage.setItem('loggedInEmail', user.email);
+    sessionStorage.setItem('username', user.name);
+
+    alert("Login successful! Redirecting to Dashboard...");
+    window.location.href = "dashboard.html";
+});
 </script>
 
 </body>
 </html>
-

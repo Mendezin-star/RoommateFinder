@@ -6,32 +6,143 @@
 <title>HousePal – Dashboard</title>
 
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
-body { background: #F5F5DC; padding: 20px; color: #A0522D; }
-h1 { color: #E35336; margin-bottom: 20px; font-size: 2.5rem; }
-.section { margin-bottom: 40px; }
-.section h2 { color: #E35336; margin-bottom: 15px; }
-.roommates-container { display: flex; flex-wrap: wrap; gap: 20px; transition: all 0.3s ease-in-out; }
-.roommate-card { background: #F4A460; padding: 15px; border-radius: 10px; width: 220px; box-shadow: 0 0 15px rgba(0,0,0,0.2); display: flex; flex-direction: column; align-items: center; gap: 10px; transition: transform 0.3s, opacity 0.3s; }
-.roommate-card.hide { display: none; opacity: 0; transform: scale(0.95); }
-.roommate-card img { width: 100%; height: 120px; object-fit: cover; border-radius: 8px; }
-.tags { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; }
-.tag { background: #E35336; color: #F5F5DC; padding: 3px 6px; border-radius: 5px; font-size: 0.8rem; }
-.match-level { margin-top: 5px; font-weight: bold; }
-.save-btn { padding: 8px 12px; background: #E35336; color: #F5F5DC; border: none; border-radius: 6px; cursor: pointer; transition: 0.3s; margin-top: 5px; }
-.save-btn:hover { background: #A0522D; }
-.filters { margin-bottom: 20px; display: flex; gap: 15px; flex-wrap: wrap; }
-.filters select { padding: 8px; border-radius: 6px; border: none; }
-@media (max-width: 900px) { .roommates-container { justify-content: center; } }
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+
+/* MATCH REGISTER STYLE */
+body{
+    background:#EAE2B7;
+    padding:20px;
+    color:#003090;
+}
+
+h1{
+    color:#D62828;
+    margin-bottom:25px;
+    font-size:2.6rem;
+}
+
+.section{
+    margin-bottom:30px;
+}
+.section h2{
+    color:#D62828;
+    margin-bottom:15px;
+    font-size:1.8rem;
+}
+
+/* FILTER STYLING */
+.filters{
+    margin-bottom:15px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+.filters select{
+    padding:10px;
+    border-radius:8px;
+    border:none;
+    background:#FCBF49;
+    color:#003090;
+    font-weight:bold;
+}
+
+/* ROOMMATE CARD STYLING */
+.roommates-container{
+    display:flex;
+    flex-wrap:wrap;
+    gap:20px;
+}
+
+.roommate-card{
+    background:#FCBF49;
+    padding:18px;
+    border-radius:14px;
+    width:240px;
+    box-shadow:0 0 15px rgba(0,0,0,0.2);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+    color:#003090;
+}
+
+.avatar{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:2rem;
+    font-weight:bold;
+    color:white;
+    margin-bottom:8px;
+}
+
+.tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    justify-content:center;
+}
+.tag{
+    background:#F77F00;
+    color:white;
+    padding:4px 7px;
+    border-radius:5px;
+    font-size:0.82rem;
+}
+
+.match-level{
+    font-weight:bold;
+    color:#D62828;
+}
+
+.save-btn{
+    padding:10px;
+    background:#F77F00;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    width:100%;
+    font-weight:bold;
+    transition:0.3s;
+}
+.save-btn:hover{
+    background:#D62828;
+}
+
+/* SAVED ROOMMATES SECTION */
+.saved-header{
+    background:#D62828;
+    color:white;
+    padding:12px;
+    border-radius:10px;
+    font-size:1.3rem;
+    cursor:pointer;
+    margin-bottom:10px;
+    text-align:center;
+    font-weight:bold;
+}
+.saved-header:hover{
+    background:#A00000;
+}
+
+#savedContainer{
+    display:none;
+    transition:0.4s;
+}
 </style>
 </head>
 <body>
 
 <h1 id="greeting">Hello, User!</h1>
 
-<!-- Recommended Roommates Section -->
+<!-- Recommended Roommates -->
 <div class="section">
     <h2>Recommended Roommates</h2>
+
     <div class="filters">
         <select id="filterLocation">
             <option value="">Filter by Location</option>
@@ -40,12 +151,14 @@ h1 { color: #E35336; margin-bottom: 20px; font-size: 2.5rem; }
             <option value="kenyatta">Kenyatta University</option>
             <option value="cbd">CBD / Town</option>
         </select>
+
         <select id="filterBudget">
             <option value="">Filter by Budget</option>
             <option value="low">Below 20k</option>
-            <option value="medium">20k-50k</option>
+            <option value="medium">20k–50k</option>
             <option value="high">50k+</option>
         </select>
+
         <select id="filterMatch">
             <option value="">Sort by Match Level</option>
             <option value="high">High → Low</option>
@@ -53,126 +166,148 @@ h1 { color: #E35336; margin-bottom: 20px; font-size: 2.5rem; }
         </select>
     </div>
 
-    <div class="roommates-container" id="recommendedContainer">
-        <!-- JS will populate -->
-    </div>
+    <div class="roommates-container" id="recommendedContainer"></div>
 </div>
 
-<!-- Saved Roommates Section -->
+<!-- Saved Roommates -->
 <div class="section">
-    <h2>Saved Roommates</h2>
-    <div class="roommates-container" id="savedContainer">
-        <!-- JS will populate -->
-    </div>
+    <div class="saved-header" onclick="toggleSaved()">Saved Roommates ▼</div>
+    <div class="roommates-container" id="savedContainer"></div>
 </div>
 
 <script>
-// ====== User Simulation ======
-let userName = sessionStorage.getItem('username') || 'User';
-document.getElementById('greeting').innerText = `Hello, ${userName}!`;
+// ===== USER NAME DISPLAY =====
+let userName = sessionStorage.getItem('username') || "User";
+document.getElementById("greeting").innerText = `Hello, ${userName}!`;
 
-// ====== Roommates Data ======
-const roommates = [
-    {id:1, name:'Jane Doe', budget:30000, location:'strathmore', sleep:'Early Sleeper', noise:'Quiet', smoking:'Non-smoker', pets:'No Pets', match:'High', img:'hostel1.jpg'},
-    {id:2, name:'Mark Smith', budget:25000, location:'uon', sleep:'Late Sleeper', noise:'Moderate Noise', smoking:'Has Pets', pets:'Has Pets', match:'Medium', img:'hostel2.jpg'},
-    {id:3, name:'Lucy Kim', budget:40000, location:'kenyatta', sleep:'Early Sleeper', noise:'Quiet', smoking:'No Pets', pets:'No Pets', match:'High', img:'hostel3.jpg'},
-    {id:4, name:'David Mwangi', budget:20000, location:'cbd', sleep:'Late Sleeper', noise:'Moderate Noise', smoking:'Non-smoker', pets:'No Pets', match:'Low', img:'hostel4.jpg'}
+// ===== SAMPLE ROOMMATE DATA =====
+const sampleRoommates = [
+    {id:1,name:"Jane Doe",budget:30000,location:"strathmore",sleep:"Early Sleeper",noise:"Quiet",smoking:"Non-smoker",match:"High"},
+    {id:2,name:"Mark Smith",budget:25000,location:"uon",sleep:"Late Sleeper",noise:"Moderate Noise",smoking:"Smoker",match:"Medium"},
+    {id:3,name:"Lucy Kim",budget:40000,location:"kenyatta",sleep:"Early Sleeper",noise:"Quiet",smoking:"Non-smoker",match:"High"},
+    {id:4,name:"David Mwangi",budget:20000,location:"cbd",sleep:"Late Sleeper",noise:"Moderate Noise",smoking:"Non-smoker",match:"Low"},
 ];
+
+// ===== REGISTERED USERS =====
+let registeredUsers = JSON.parse(localStorage.getItem('users')) || [];
+
+// Combine sample + registered users
+const roommates = [...sampleRoommates, ...registeredUsers];
 
 let saved = [];
 
-// ====== Function to create card HTML ======
-function createCard(roommate, type='recommended'){
-    const card = document.createElement('div');
-    card.classList.add('roommate-card');
-    card.dataset.id = roommate.id;
-    card.dataset.location = roommate.location;
-    card.dataset.budget = roommate.budget;
-    card.dataset.match = roommate.match.toLowerCase();
+// ===== INITIALS GENERATOR =====
+function getInitials(name){
+    const parts = name.split(" ");
+    return parts.length === 1 ? parts[0][0].toUpperCase() :
+           (parts[0][0] + parts[1][0]).toUpperCase();
+}
+
+// ===== RANDOM COLOR FOR AVATARS =====
+function randomColor(){
+    const colors = ["#D62828","#F77F00","#003090","#8B4513","#CD5C5C","#DAA520"];
+    return colors[Math.floor(Math.random()*colors.length)];
+}
+
+// ===== CREATE ROOMMATE CARD =====
+function createCard(roommate,type="recommended"){
+    const card = document.createElement("div");
+    card.classList.add("roommate-card");
+
+    const initials = getInitials(roommate.name);
 
     card.innerHTML = `
-        <img src="${roommate.img}" alt="${roommate.name}">
+        <div class="avatar" style="background:${randomColor()}">${initials}</div>
         <strong>${roommate.name}</strong>
         <div>Budget: ${roommate.budget.toLocaleString()}</div>
         <div>Location: ${roommate.location}</div>
+
         <div class="tags">
             <div class="tag">${roommate.sleep}</div>
             <div class="tag">${roommate.noise}</div>
             <div class="tag">${roommate.smoking}</div>
         </div>
+
         <div class="match-level">Match: ${roommate.match}</div>
-        <button class="save-btn">${type === 'recommended' ? 'Save' : 'Remove'}</button>
+
+        <button class="save-btn">${type==="recommended" ? "Save" : "Remove"}</button>
     `;
-    const btn = card.querySelector('button');
-    btn.addEventListener('click', ()=>{
-        if(type === 'recommended'){
+
+    const btn = card.querySelector("button");
+    btn.addEventListener("click", ()=>{
+        if(type==="recommended"){
             saved.push(roommate);
             renderSaved();
-            card.remove();
-        } else {
-            saved = saved.filter(r=>r.id!==roommate.id);
+            renderRecommended();
+        }else{
+            saved = saved.filter(r => r.id !== roommate.id);
+            renderSaved();
             renderRecommended();
         }
     });
+
     return card;
 }
 
-// ====== Render Functions ======
+// ===== RENDER FUNCTIONS =====
 function renderRecommended(){
-    const container = document.getElementById('recommendedContainer');
-    container.innerHTML = '';
-    roommates.filter(r=>!saved.includes(r)).forEach(r=>container.appendChild(createCard(r,'recommended')));
+    const cont = document.getElementById("recommendedContainer");
+    cont.innerHTML = "";
+    roommates.filter(r => !saved.some(s=>s.id===r.id)).forEach(r=>cont.appendChild(createCard(r,"recommended")));
 }
+
 function renderSaved(){
-    const container = document.getElementById('savedContainer');
-    container.innerHTML = '';
-    saved.forEach(r=>container.appendChild(createCard(r,'saved')));
+    const cont = document.getElementById("savedContainer");
+    cont.innerHTML = "";
+    saved.forEach(r=>cont.appendChild(createCard(r,"saved")));
 }
 
-// ====== Filter Logic ======
-function applyFilters(){
-    const loc = document.getElementById('filterLocation').value;
-    const budget = document.getElementById('filterBudget').value;
-    const matchSort = document.getElementById('filterMatch').value;
+// ===== TOGGLE SAVED =====
+function toggleSaved(){
+    const box = document.getElementById("savedContainer");
+    box.style.display = (box.style.display==="none" || box.style.display==="") ? "flex" : "none";
+}
 
-    const container = document.getElementById('recommendedContainer');
-    const cards = container.querySelectorAll('.roommate-card');
+// ===== FILTERS =====
+function applyFilters(){
+    const loc = document.getElementById("filterLocation").value;
+    const budget = document.getElementById("filterBudget").value;
+    const sort = document.getElementById("filterMatch").value;
+
+    let cards = [...document.querySelectorAll("#recommendedContainer .roommate-card")];
 
     cards.forEach(card=>{
         let show = true;
-
-        // Location filter
-        if(loc && card.dataset.location !== loc) show = false;
-
-        // Budget filter
-        const b = parseInt(card.dataset.budget);
-        if(budget==='low' && b>=20000) show=false;
-        if(budget==='medium' && (b<20000 || b>50000)) show=false;
-        if(budget==='high' && b<=50000) show=false;
-
-        card.style.display = show ? 'flex' : 'none';
+        let cardBudget = parseInt(card.children[2].innerText.replace("Budget: ","").replace(",",""));
+        if(loc && !card.innerHTML.includes(loc)) show=false;
+        if(budget==="low" && cardBudget>=20000) show=false;
+        if(budget==="medium" && (cardBudget<20000||cardBudget>50000)) show=false;
+        if(budget==="high" && cardBudget<=50000) show=false;
+        card.style.display = show?"flex":"none";
     });
 
-    // Match sorting
-    if(matchSort){
-        let sorted = Array.from(cards).filter(c=>c.style.display!=='none');
-        sorted.sort((a,b)=>{
-            const m = {'high':3,'medium':2,'low':1};
-            return matchSort==='high' ? m[b.dataset.match]-m[a.dataset.match] : m[a.dataset.match]-m[b.dataset.match];
-        });
-        sorted.forEach(c=>container.appendChild(c));
+    if(sort){
+        let m = {high:3,medium:2,low:1};
+        let cont = document.getElementById("recommendedContainer");
+
+        let visible = cards.filter(c=>c.style.display!=="none")
+            .sort((a,b)=>{
+                let ma = a.querySelector(".match-level").innerText.split(": ")[1].toLowerCase();
+                let mb = b.querySelector(".match-level").innerText.split(": ")[1].toLowerCase();
+                return sort==="high"? m[mb]-m[ma]: m[ma]-m[mb];
+            });
+
+        visible.forEach(c=>cont.appendChild(c));
     }
 }
 
-// ====== Event Listeners for Filters ======
-document.getElementById('filterLocation').addEventListener('change', applyFilters);
-document.getElementById('filterBudget').addEventListener('change', applyFilters);
-document.getElementById('filterMatch').addEventListener('change', applyFilters);
+document.getElementById("filterLocation").addEventListener("change",applyFilters);
+document.getElementById("filterBudget").addEventListener("change",applyFilters);
+document.getElementById("filterMatch").addEventListener("change",applyFilters);
 
-// ====== Initial Render ======
+// INITIAL RENDER
 renderRecommended();
 renderSaved();
 </script>
-
 </body>
 </html>
